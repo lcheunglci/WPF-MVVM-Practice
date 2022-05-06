@@ -1,12 +1,10 @@
 ﻿using FriendOrganizer.Model;
 using FriendOrganizer.UI.Data;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace FriendOrganizer.UI.ViewModel
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : ViewModelBase
     {
         public MainViewModel(IFriendDataService friendDataService)
         {
@@ -30,8 +28,6 @@ namespace FriendOrganizer.UI.ViewModel
 
         private IFriendDataService _friendDataService;
 
-        public event PropertyChangedEventHandler? PropertyChanged;
-
         public Friend SelectedFriend
         {
             get { return _selectedFriend; }
@@ -40,12 +36,6 @@ namespace FriendOrganizer.UI.ViewModel
                 _selectedFriend = value;
                 OnPropertyChanged();
             }
-
-        }
-
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
