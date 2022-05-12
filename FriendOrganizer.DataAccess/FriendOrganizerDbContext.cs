@@ -1,5 +1,6 @@
 ﻿using FriendOrganizer.Model;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace FriendOrganizer.DataAccess
 {
@@ -16,7 +17,15 @@ namespace FriendOrganizer.DataAccess
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Friend>().Property(f => f.FirstName).IsRequired().HasMaxLength(50);
+            modelBuilder.ApplyConfiguration(new FriendConfiguration());
+        }
+    }
+
+    public class FriendConfiguration : IEntityTypeConfiguration<Friend>
+    {
+        public void Configure(EntityTypeBuilder<Friend> builder)
+        {
+            builder.Property<string>(f => f.FirstName).IsRequired().HasMaxLength(50);
         }
     }
 }
