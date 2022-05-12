@@ -12,5 +12,11 @@ namespace FriendOrganizer.DataAccess
             optionsBuilder.UseSqlServer(
                 @"Server=(localdb)\mssqllocaldb;Database=FriendOrganizerDb;Initial Catalog=FriendOrganizer;Integrated Security=true;Trusted_Connection=true");
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Friend>().Property(f => f.FirstName).IsRequired().HasMaxLength(50);
+        }
     }
 }
